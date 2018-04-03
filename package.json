@@ -1,0 +1,19 @@
+{
+  "name": "react-3d-carousel",
+  "version": "0.1.0",
+  "description": "React 3D Carousel component",
+  "main": "src/Carousel3D.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agentreno/react-3d-carousel.git"
+  },
+  "author": "Karl Hopkinson-Turrell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agentreno/react-3d-carousel/issues"
+  },
+  "homepage": "https://github.com/agentreno/react-3d-carousel#readme"
+}

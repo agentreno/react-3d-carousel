@@ -17,7 +17,7 @@ const Carousel = styled.div`
     transform-style: preserve-3d;
     transition: transform 1s;
 
-    transform: translateZ(-288px) rotateY(0deg);
+    transform: translateZ(-288px) rotateY(${props => props.displayedIndex * 40}deg);
 `
 
 const Figure = styled.figure`
@@ -41,11 +41,33 @@ const Button = styled.button`
 `
 
 class Carousel3D extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            displayedIndex: 0
+        }
+
+        this.handlePrevious = this.handlePrevious.bind(this)
+        this.handleNext = this.handleNext.bind(this)
+    }
+
+    handlePrevious() {
+        this.setState(prevState => ({
+            displayedIndex: prevState.displayedIndex - 1
+        }))
+    }
+
+    handleNext() {
+        this.setState(prevState => ({
+            displayedIndex: prevState.displayedIndex + 1
+        }))
+    }
+
     render() {
         return (
             <div>
                 <Container>
-                    <Carousel>
+                    <Carousel displayedIndex={this.state.displayedIndex}>
                         {
                             [...Array(9).keys()].map(index => (
                                 <Figure
@@ -59,8 +81,8 @@ class Carousel3D extends React.Component {
 
                 </Container>
                 <section>
-                    <Button>Previous</Button>
-                    <Button>Next</Button>
+                    <Button onClick={this.handlePrevious}>Previous</Button>
+                    <Button onClick={this.handleNext}>Next</Button>
                 </section>
             </div>
         )

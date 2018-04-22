@@ -17,7 +17,7 @@ const Carousel = styled.div`
     transform-style: preserve-3d;
     transition: transform 1s;
 
-    transform: translateZ(-${props => props.zValue}px) rotateY(${props => props.displayedIndex * 40}deg);
+    transform: translateZ(-${props => props.zValue}px) rotateY(${props => props.displayedIndex * (360 / props.panelCount)}deg);
 `
 
 const Figure = styled.figure`
@@ -31,7 +31,7 @@ const Figure = styled.figure`
     border: ${props => `${props.borderSize}px solid black`};
     backface-visibility: hidden;
 
-    transform: rotateY(${props => props.index * 40}deg) translateZ(${props => props.zValue}px);
+    transform: rotateY(${props => props.index * (360 / props.panelCount)}deg) translateZ(${props => props.zValue}px);
 `
 
 const Button = styled.button`
@@ -49,7 +49,8 @@ class Carousel3D extends React.Component {
 
         this.figureWidth = this.props.panelWidth - (this.props.panelPadding * 2) - (this.props.borderSize * 2)
         this.figureHeight = this.props.panelHeight - (this.props.panelPadding * 2) - (this.props.borderSize * 2)
-        this.zValue = Math.round(this.props.panelWidth / 2) / Math.tan(Math.PI / 9)
+        this.panelCount = this.props.panelRenderers.length
+        this.zValue = Math.round(this.props.panelWidth / 2) / Math.tan(Math.PI / this.panelCount)
 
         this.handlePrevious = this.handlePrevious.bind(this)
         this.handleNext = this.handleNext.bind(this)
@@ -77,9 +78,10 @@ class Carousel3D extends React.Component {
                     <Carousel
                         displayedIndex={this.state.displayedIndex}
                         zValue={this.zValue}
+                        panelCount={this.panelCount}
                     >
                         {
-                            [...Array(9).keys()].map(index => (
+                            this.props.panelRenderers.map((renderer, index) => (
                                 <Figure
                                     index={index}
                                     figureWidth={this.figureWidth}
@@ -87,8 +89,9 @@ class Carousel3D extends React.Component {
                                     panelPadding={this.props.panelPadding}
                                     borderSize={this.props.borderSize}
                                     zValue={this.zValue}
+                                    panelCount={this.panelCount}
                                 >
-                                    {index}
+                                    {renderer()}
                                 </Figure>
                             ))
                         }

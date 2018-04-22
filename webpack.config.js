@@ -4,7 +4,9 @@ module.exports = {
     entry: './src/Carousel3D.js',
     output: {
         filename: 'Carousel3D.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        library: '',
+        libraryTarget: 'commonjs'
     },
     module: {
         rules: [

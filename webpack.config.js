@@ -6,7 +6,7 @@ module.exports = {
         filename: 'Carousel3D.js',
         path: path.resolve(__dirname, 'dist'),
         library: '',
-        libraryTarget: 'commonjs'
+        libraryTarget: 'commonjs2'
     },
     module: {
         rules: [

@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/agentreno/react-3d-carousel#readme",
   "dependencies": {
+    "babel-preset-env": "^1.6.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "styled-components": "^3.2.5"

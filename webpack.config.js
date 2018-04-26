@@ -5,14 +5,21 @@ module.exports = {
     output: {
         filename: 'Carousel3D.js',
         path: path.resolve(__dirname, 'dist'),
-        library: '',
         libraryTarget: 'commonjs2'
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader'
+                loader: 'babel-loader',
+                include: path.resolve(__dirname, 'src'),
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env']
+                    }
+                }
             }
         ]
     },

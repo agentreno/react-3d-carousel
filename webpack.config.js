@@ -24,5 +24,6 @@ module.exports = {
     },
     externals: {
         'react': 'commonjs react'
-    }
+    },
+    devtool: 'source-map'
 }

@@ -3,18 +3,51 @@ import ReactDOM from 'react-dom'
 
 import Carousel3D from '../src/Carousel3D'
 
-const Placeholder = () => (
-    <h2>Hello</h2>
+const Placeholder = ({ index }) => (
+    <h2>Panel {index + 1}</h2>
 )
 
-const panels = Array(6).fill(Placeholder)
+class App extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            panels: Array(6).fill().map((_, index) => () => Placeholder({ index }))
+        }
 
-ReactDOM.render(
-    <Carousel3D
-        panelWidth={500}
-        panelHeight={700}
-        panelRenderers={panels}
-    />,
-    document.getElementById('root')
-)
+        this.addPanel = this.addPanel.bind(this)
+        this.removePanel = this.removePanel.bind(this)
+    }
 
+    addPanel() {
+        this.setState(prevState => {
+            let panelCount = prevState.panels.length
+            return Object.assign({}, prevState, {
+                panels: prevState.panels.concat(() => Placeholder({ index: panelCount }))
+            })
+        })
+    }
+
+    removePanel() {
+        this.setState(prevState => {
+            return Object.assign({}, prevState, {
+                panels: prevState.panels.slice(0, -1)
+            })
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <Carousel3D
+                    panelWidth={500}
+                    panelHeight={700}
+                    panelRenderers={this.state.panels}
+                />
+                <button onClick={this.addPanel}>Add Panel</button>
+                <button onClick={this.removePanel}>Remove Panel</button>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(<App />, document.getElementById('root'))

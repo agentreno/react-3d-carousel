@@ -43,28 +43,39 @@ const Button = styled.button`
 class Carousel3D extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            displayedIndex: 0
-        }
 
+        this.state = {}
         this.figureWidth = this.props.panelWidth - (this.props.panelPadding * 2) - (this.props.borderSize * 2)
         this.figureHeight = this.props.panelHeight - (this.props.panelPadding * 2) - (this.props.borderSize * 2)
-        this.panelCount = this.props.panelRenderers.length
-        this.zValue = Math.round(this.props.panelWidth / 2) / Math.tan(Math.PI / this.panelCount)
 
         this.handlePrevious = this.handlePrevious.bind(this)
         this.handleNext = this.handleNext.bind(this)
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        return Object.assign(
+            {
+                displayedIndex: 0
+            },
+            prevState,
+            {
+                panelCount: nextProps.panelRenderers.length,
+                zValue: Math.round(nextProps.panelWidth / 2) / Math.tan(Math.PI / nextProps.panelRenderers.length)
+            }
+        )
+    }
+
     handlePrevious() {
         this.setState(prevState => ({
-            displayedIndex: prevState.displayedIndex - 1
+            ...prevState,
+            displayedIndex: (prevState.displayedIndex - 1) % prevState.panelCount
         }))
     }
 
     handleNext() {
         this.setState(prevState => ({
-            displayedIndex: prevState.displayedIndex + 1
+            ...prevState,
+            displayedIndex: (prevState.displayedIndex + 1) % prevState.panelCount
         }))
     }
 
@@ -77,19 +88,20 @@ class Carousel3D extends React.Component {
                 >
                     <Carousel
                         displayedIndex={this.state.displayedIndex}
-                        zValue={this.zValue}
-                        panelCount={this.panelCount}
+                        zValue={this.state.zValue}
+                        panelCount={this.state.panelCount}
                     >
                         {
                             this.props.panelRenderers.map((renderer, index) => (
                                 <Figure
+                                    key={index}
                                     index={index}
                                     figureWidth={this.figureWidth}
                                     figureHeight={this.figureHeight}
                                     panelPadding={this.props.panelPadding}
                                     borderSize={this.props.borderSize}
-                                    zValue={this.zValue}
-                                    panelCount={this.panelCount}
+                                    zValue={this.state.zValue}
+                                    panelCount={this.state.panelCount}
                                 >
                                     {renderer()}
                                 </Figure>

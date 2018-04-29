@@ -4,7 +4,7 @@
 
 React 3D Carousel component which allows any type of child component as part of
 the carousel. Inspired by https://github.com/bobiblazeski/react-3d-carousel but
-updated to use JSX, ES6 classs definitions and allow any child component
+updated to use JSX, ES6 class definitions and allow any child component
 instead of just img.
 
 This article also heavily influenced my implementation, much credit to:
@@ -49,6 +49,11 @@ ReactDOM.render(<App />, document.getElementById('root'))
 
 See [the example app](example/index.js) that uses the component for a more
 complete example.
+
+## TODO
+
+- Find a package name that isn't taken and publish on npm
+- Responsive behaviour and grow panel to accomodate contents
 
 ## Contributing
 

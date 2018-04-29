@@ -53,7 +53,6 @@ class Carousel3D extends React.Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log('getDerivedStateFromProps', nextProps, prevState)
         return Object.assign(
             {
                 displayedIndex: 0
